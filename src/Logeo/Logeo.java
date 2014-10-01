@@ -4,7 +4,9 @@
  */
 package Logeo;
 
+import Menu.Principal;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -85,6 +87,11 @@ public class Logeo extends javax.swing.JFrame {
 
         btnLogin.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         btnLogin.setText("Login");
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 100, 40));
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -138,6 +145,22 @@ public class Logeo extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_cmbIdiomaItemStateChanged
+
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        // TODO add your handling code here:
+        String user=txtUsuario.getText();
+        String pass=txtPassword.getText();
+        
+        if (user.equals("rene") && pass.equals("programador")){
+            this.dispose();
+            Principal p=new Principal();
+            p.setVisible(true);                
+        }else{
+            JOptionPane.showMessageDialog(null,"Usuario o Contraseña incorrectos","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_btnLoginMouseClicked
 
     /**
      * @param args the command line arguments
