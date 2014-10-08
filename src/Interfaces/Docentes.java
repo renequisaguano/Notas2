@@ -366,7 +366,7 @@ public class Docentes extends javax.swing.JFrame {
     private void btnGrabarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrabarMouseClicked
         
        try{
-           PreparedStatement pstm=con.getConexion().prepareStatement("INSERT INTO docente (CEDULA_DOC,NOMBRE_DOC,APELLIDO_DOC,DIRECCION_DOC,TELEFONO_DOC) VALUES (?, ?, ?, ?,?);");
+           PreparedStatement pstm=con.getConexion().prepareCall("call insertarDocente(?, ?, ?, ?,?);");
            pstm.setString(1,txtCedula.getText());
            pstm.setString(2, txtNombre.getText());
            pstm.setString(3, txtApellido.getText());
@@ -378,11 +378,12 @@ public class Docentes extends javax.swing.JFrame {
                respuesta=r.getString(1).toString();
            }
            JOptionPane.showMessageDialog(null,respuesta,"CONFIRMACION",JOptionPane.WARNING_MESSAGE);
+           pstm.close();
            
        }
        catch(SQLException ex)
        {
-           
+           JOptionPane.showMessageDialog(null,ex);
        }
     }//GEN-LAST:event_btnGrabarMouseClicked
 
