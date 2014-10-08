@@ -14,11 +14,12 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
     
-    static String login="";
+    static String login="root";
     static String password="";
-    static String url="jdbc.odbc:netbeans";
+    static String url="jdbc:odbc:netbeans";
     Connection con=null;
     String driver="sun.jdbc.odbc.JdbcOdbcDriver";
+    //String driver="com.mysql.jdbc.Driver";
 
     public Conexion() {
         

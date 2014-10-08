@@ -4,8 +4,16 @@
  */
 package Interfaces;
 
+import Conexion.Conexion;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyListener;
+import java.io.FileNotFoundException;
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -20,6 +28,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Docentes extends javax.swing.JFrame {
     
     
+    //Atributos para conexion de docente
+    Conexion con=new Conexion();
+    CallableStatement cadSql;
+    ResultSet rs;
+    Statement sentencia;
+    
+    
+    
+    
     //variable para cargar las imagenes
     private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo de imagen","jpg","png");
     String rutaImagen;
@@ -32,6 +49,7 @@ public class Docentes extends javax.swing.JFrame {
         initComponents();
         ocultarMensajes();
         rutaImagen="";
+        this.setLocationRelativeTo(null);
     }
     
     public void ocultarMensajes(){
@@ -290,56 +308,90 @@ public class Docentes extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnSalirMouseClicked
 
-    private void validarNumeros(JTextField t){
-        //if (!t.getText().matches("[0-9--]*"))
-         if (!t.getText().matches("[0-9]*")){
-            JOptionPane.showMessageDialog(null, "Solo se permiten Numeros","Advertencia",JOptionPane.ERROR_MESSAGE);
-            
-        }
-        
-    }
+
     private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
        
-     //  validarNumeros(txtCedula);
-       if (!Character.isDigit(evt.getKeyChar()) && !Character.isISOControl(evt.getKeyChar())) {
+     validarNumeros(txtCedula,evt);
+     validarLongitud(10,txtCedula,lblErrorCedula,evt);
+      
+       
+    }//GEN-LAST:event_txtCedulaKeyReleased
+
+    private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
+        validarNumeros(txtTelefono,evt);
+        validarLongitud(10,txtTelefono,lblErrorTelefono,evt);
+    }//GEN-LAST:event_txtTelefonoKeyReleased
+
+    private void validarNumeros(JTextField t,java.awt.event.KeyEvent evt){
+        /*
+         * 
+         * //if (!t.getText().matches("[0-9--]*"))
+         if (!t.getText().matches("[0-9]*")){
+            JOptionPane.showMessageDialog(null, "Solo se permiten Numeros","Advertencia",JOptionPane.ERROR_MESSAGE);
+           
+            
+        }
+        */
+         if (!Character.isDigit(evt.getKeyChar()) && !Character.isISOControl(evt.getKeyChar())) {
             JOptionPane.showMessageDialog(null, "Este campo solo acepta numeros", "Advertencia", JOptionPane.ERROR_MESSAGE);
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_txtCedulaKeyReleased
-
-    private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
-        validarNumeros(txtTelefono);
-    }//GEN-LAST:event_txtTelefonoKeyReleased
-
+    }
+    
     private void validarLongitud(int Longitud, JTextField txt,JLabel lbl,java.awt.event.KeyEvent evt){
-         if (!(txt.getText().length()==Longitud)){
-           lbl.setVisible(true);
-           //txt.setText("");
-          // txt.requestFocus();
-          //ejecutar el metodo continuamente
-                   
-                     
-       }
-        else{
-           lbl.setVisible(false);
-           evt.consume();
-       }
+        
+       
+        if (txt.getText().length()< Longitud ){
+             lbl.setVisible(true);     
+             
+        }else{
+          
+           lbl.setVisible(false); 
+        }
         
     }
     
-    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
-      
-       validarLongitud(9,txtCedula,lblErrorCedula,evt);
-    }//GEN-LAST:event_txtCedulaKeyTyped
+    
+    private void detenerEscritura(int Longitud, JTextField txt,java.awt.event.KeyEvent evt){
+        
+       
+        if (txt.getText().length()== Longitud ){
+        evt.consume();
+        }
+          
+        
+    }
 
     private void btnGrabarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrabarMouseClicked
         
-        System.out.println(txtCedula.getText().length());
+       try{
+           PreparedStatement pstm=con.getConexion().prepareStatement("INSERT INTO docente (CEDULA_DOC,NOMBRE_DOC,APELLIDO_DOC,DIRECCION_DOC,TELEFONO_DOC) VALUES (?, ?, ?, ?,?);");
+           pstm.setString(1,txtCedula.getText());
+           pstm.setString(2, txtNombre.getText());
+           pstm.setString(3, txtApellido.getText());
+           pstm.setString(4, txtDireccion.getText());
+           pstm.setString(5, txtTelefono.getText());
+           ResultSet r=pstm.executeQuery();
+           String respuesta="";
+           while(r.next()){
+               respuesta=r.getString(1).toString();
+           }
+           JOptionPane.showMessageDialog(null,respuesta,"CONFIRMACION",JOptionPane.WARNING_MESSAGE);
+           
+       }
+       catch(SQLException ex)
+       {
+           
+       }
     }//GEN-LAST:event_btnGrabarMouseClicked
 
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+       detenerEscritura(10, txtCedula, evt);
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-       validarLongitud(10,txtTelefono,lblErrorTelefono,evt);
+        detenerEscritura(10, txtTelefono, evt);
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     /**
