@@ -1,0 +1,38 @@
+
+
+/**********Procedimiento para validar que no se repita ******///
+create procedure insertarDocente( in cedula varchar(10), in apellido varchar(45), in nombre varchar(45), in direccion varchar(100), in telefono varchar(10) ) 
+begin
+	declare res varchar(50);
+    if EXISTS (select CEDULA_DOC from docente where CEDULA_DOC=cedula) then
+        set res='La cedula ya ha sido registrada anteriormente'; 
+        select res as respuesta;
+    else 
+    	start transaction;
+        INSERT INTO docente(CEDULA_DOC,NOMBRE_DOC,APELLIDO_DOC,DIRECCION_DOC,TELEFONO_DOC) VALUES (cedula, nombre, apellido, direccion,telefono);
+        set res="Docente registrado exitosamente";
+        select res as respuesta; 
+        commit;
+    end if;
+end
+
+
+
+insert into docente(CEDULA_DOC,APELLIDO_DOC,NOMBRE_DOC,DIRECCION_DOC,TELEFONO_DOC,FOTO_DOC)
+select ('0532145632','Barreiro','Gonzalo','Loja','0986332563', * from openrowset )
+
+
+
+
+
+*///////////VISTAS///////**
+
+create view VistaDocentes
+as
+select * from docente;
+
+
+
+
+
+call insertarDocente('111','Perez','Diego','quito','0998820095');

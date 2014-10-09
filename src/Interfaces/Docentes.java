@@ -4,10 +4,12 @@
  */
 package Interfaces;
 
+import Clases.Foto;
 import Conexion.Conexion;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyListener;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -37,11 +39,14 @@ public class Docentes extends javax.swing.JFrame {
     ResultSet rs;
     Statement sentencia;
     DefaultTableModel m;
+    FileInputStream fis;
+    Foto f=new Foto();
+    
  
     
     
     //variable para cargar las imagenes
-    private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo de imagen", "jpg", "png");
+    private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo de imagen", "jpg");
     String rutaImagen;
 
     /**
@@ -54,6 +59,7 @@ public class Docentes extends javax.swing.JFrame {
         ocultarMensajes();
         rutaImagen = "";
         this.setLocationRelativeTo(null);
+        
     }
 
     public void ocultarMensajes() {
@@ -274,6 +280,11 @@ public class Docentes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDocentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblDocentesMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDocentes);
 
         panelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 930, 180));
@@ -310,11 +321,11 @@ public class Docentes extends javax.swing.JFrame {
             //Extraer la imagen del icono
             Image img = icon.getImage();
             //cambiamos el tamanio
-            Image nuevaImagen = img.getScaledInstance(155, 175, java.awt.Image.SCALE_SMOOTH);
+            Image nuevaImagen = img.getScaledInstance(130, 150, java.awt.Image.SCALE_SMOOTH);
             //se genera un image icon con la nueva imagen
             ImageIcon nuevoIcon = new ImageIcon(nuevaImagen);
             lblFotos.setIcon(nuevoIcon);
-            lblFotos.setSize(155, 175);
+            lblFotos.setSize(130, 150);
             txtRutaImagen.setText(fil);
             rutaImagen = "";
 
@@ -456,6 +467,67 @@ public class Docentes extends javax.swing.JFrame {
         validarNumeros(txtTelefono, evt);
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
+    private void tblDocentesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocentesMousePressed
+        // TODO add your handling code here:
+        
+        
+//Evento MousePresset del JTable
+        int fila = this.tblDocentes.getSelectedRow();
+//        desactivagenerador();
+        
+       btnGrabar.setEnabled(false);
+       btnEliminar.setEnabled(true);
+       btnModificar.setEnabled(true);
+       txtCedula.setEditable(false);
+        try {
+            String cedula = tblDocentes.getValueAt(fila, 1).toString();
+            this.txtCedula.setText(tblDocentes.getValueAt(fila, 1).toString());
+            this.txtApellido.setText(tblDocentes.getValueAt(fila, 2).toString());
+            this.txtNombre.setText(tblDocentes.getValueAt(fila, 3).toString());
+            this.txtDireccion.setText(tblDocentes.getValueAt(fila, 4).toString());
+            this.txtTelefono.setText(tblDocentes.getValueAt(fila, 5).toString());
+           // String consulta = "call fotoExiste ('"+cedula+"')";
+           String consulta="SELECT IF( EXISTS(SELECT FOTO_DOC FROM docente WHERE CEDULA_DOC='"+cedula+"' AND FOTO_DOC<>''), 1, 0);";
+           
+            
+            ResultSet r = con.Listar(consulta);
+            String RESPUES = "";
+            while (r.next()) {
+                RESPUES = r.getString(1).toString();
+               
+            }
+            if (RESPUES.equals("0")) {
+                lblFotos.setIcon(new ImageIcon(getClass().getResource("/Imagenes/paisaje1.jpg")));
+            } else {
+               cargarfoto(cedula);//llama al metodo para cargar la foto en el table y le invia el parametro DNI
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "OCURRIO UN ERROR AL MOMENTO DE SELECCIONAR EL DOCENTE", "ADVERTENCIA", JOptionPane.QUESTION_MESSAGE);
+            
+        }
+        
+    }//GEN-LAST:event_tblDocentesMousePressed
+
+    
+    //Crear este metodo tal y como lo explico en el video
+ //METODO PARA CARGAR LA FOTO DEL DOCENTE
+    public void cargarfoto(String cedula) {
+        Image dtCat = f.recuperarfotos(cedula);
+        ImageIcon icon = new ImageIcon(dtCat);
+        //Se extrae la imagen del icono
+        Image img = icon.getImage();
+        //Se modifica su tamaño
+        Image newimg = img.getScaledInstance(130, 150, java.awt.Image.SCALE_SMOOTH);
+        //SE GENERA EL IMAGE ICON CON LA NUEVA IMAGEN
+        ImageIcon newIcon = new ImageIcon(newimg);
+        //Se coloca el nuevo icono modificado
+        if (newIcon == null) {
+            JOptionPane.showMessageDialog(null, "no tiene imagen","ADVERTENCIA",JOptionPane.ERROR);
+        } else {
+            lblFotos.setIcon(newIcon);//Seteamos la foto el el label llamado jLFoto del frame HISTORIALASISITENCIA
+            lblFotos.setSize(130, 150);//Seteamos el tamaño para la foto  
+        }
+    }
     /**
      * @param args the command line arguments
      */
