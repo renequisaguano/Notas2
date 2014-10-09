@@ -18,9 +18,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -385,9 +388,11 @@ public class Docentes extends javax.swing.JFrame {
         try {
             String titulos[] = {"Nº", "CEDULA", "APELLIDO", "NOMBRE", "DIRECCION", "TELEFONO"};
             m = new DefaultTableModel(null,titulos);
+            //para ordenar
+            JTable p=new JTable(m);
             String fila[] = new String[6];
             
-            String consulta = "select * from vistadocentes";
+            String consulta = "select * from vistadocentes order by apellido_doc";
             ResultSet r;
             r = con.Listar(consulta);
             int c = 1;
@@ -401,11 +406,11 @@ public class Docentes extends javax.swing.JFrame {
                  m.addRow(fila);
                 c++;
        }
-            tblDocentes.setModel(m);
             
-
-
-
+            TableRowSorter<TableModel> paraOrdenar=new TableRowSorter<TableModel>(m);
+            tblDocentes.setRowSorter(paraOrdenar);
+            tblDocentes.setModel(m);
+          
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,"Error al cargar los Datos");
@@ -424,8 +429,8 @@ public class Docentes extends javax.swing.JFrame {
         try {
             PreparedStatement pstm = con.getConexion().prepareCall("call insertarDocente(?, ?, ?, ?,?);");
             pstm.setString(1, txtCedula.getText());
-            pstm.setString(2, txtNombre.getText());
-            pstm.setString(3, txtApellido.getText());
+            pstm.setString(2, txtApellido.getText());
+            pstm.setString(3, txtNombre.getText());
             pstm.setString(4, txtDireccion.getText());
             pstm.setString(5, txtTelefono.getText());
             ResultSet r = pstm.executeQuery();
