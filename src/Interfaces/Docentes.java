@@ -20,43 +20,44 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author rene
  */
 public class Docentes extends javax.swing.JFrame {
-    
-    
+
     //Atributos para conexion de docente
-    Conexion con=new Conexion();
+    Conexion con = new Conexion();
     CallableStatement cadSql;
     ResultSet rs;
     Statement sentencia;
-    
-    
+    DefaultTableModel m;
+ 
     
     
     //variable para cargar las imagenes
-    private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo de imagen","jpg","png");
+    private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo de imagen", "jpg", "png");
     String rutaImagen;
-    
 
     /**
      * Creates new form Docentes
      */
     public Docentes() {
         initComponents();
+        cargarDocentes();
+        formatearTablaDocentes();
         ocultarMensajes();
-        rutaImagen="";
+        rutaImagen = "";
         this.setLocationRelativeTo(null);
     }
-    
-    public void ocultarMensajes(){
+
+    public void ocultarMensajes() {
         lblErrorCedula.setVisible(false);
         lblErrorTelefono.setVisible(false);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,6 +97,8 @@ public class Docentes extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         lblErrorTelefono = new javax.swing.JLabel();
         lblErrorCedula = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDocentes = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -257,50 +260,65 @@ public class Docentes extends javax.swing.JFrame {
         lblErrorCedula.setText("X     Ingrese 10 digitos");
         panelPrincipal.add(lblErrorCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 130, -1));
 
-        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 520));
+        tblDocentes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDocentes);
+
+        panelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 930, 180));
+
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 640));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCargarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarImagenActionPerformed
-        
+
         //Creamos un objeto de JfileChooser
-        JFileChooser dlg=new JFileChooser();
+        JFileChooser dlg = new JFileChooser();
         //del objeto creado vamoas a llamar al metodo setFileFilter
         dlg.setFileFilter(filter);
         //abriremos la ventana de dialogo para escojer la imagen
-        int option= dlg.showOpenDialog(this);
+        int option = dlg.showOpenDialog(this);
         //Si hacemos click en el boton abrir
-        if (option==JFileChooser.APPROVE_OPTION){
+        if (option == JFileChooser.APPROVE_OPTION) {
             //obtener el nombre del arechivo
-            String fil=dlg.getSelectedFile().getPath();
-            
+            String fil = dlg.getSelectedFile().getPath();
+
             /*
-            //obtener la dirrecion donde se guardara la imagen
-            String file=dlg.getSelectedFile().toString();
-            //cargamos la imagen seleccionada al label No es necdesario
-            lblFotos.setIcon(new ImageIcon(file));           
-            */       
-            
+             //obtener la dirrecion donde se guardara la imagen
+             String file=dlg.getSelectedFile().toString();
+             //cargamos la imagen seleccionada al label No es necdesario
+             lblFotos.setIcon(new ImageIcon(file));           
+             */
+
             //modificamos la imagen
-            ImageIcon icon=new ImageIcon(fil);
-            
-            
+            ImageIcon icon = new ImageIcon(fil);
+
+
             //Extraer la imagen del icono
-            Image img=icon.getImage();
+            Image img = icon.getImage();
             //cambiamos el tamanio
-            Image nuevaImagen=img.getScaledInstance(155, 175,java.awt.Image.SCALE_SMOOTH);
+            Image nuevaImagen = img.getScaledInstance(155, 175, java.awt.Image.SCALE_SMOOTH);
             //se genera un image icon con la nueva imagen
             ImageIcon nuevoIcon = new ImageIcon(nuevaImagen);
             lblFotos.setIcon(nuevoIcon);
-            lblFotos.setSize(155,175);
+            lblFotos.setSize(155, 175);
             txtRutaImagen.setText(fil);
-            rutaImagen="";
-            
-             
+            rutaImagen = "";
+
+
         }
-        
-        
+
+
     }//GEN-LAST:event_btnCargarImagenActionPerformed
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
@@ -308,91 +326,129 @@ public class Docentes extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnSalirMouseClicked
 
-
     private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
-       
-     validarNumeros(txtCedula,evt);
-     validarLongitud(10,txtCedula,lblErrorCedula,evt);
-      
-       
+
+
+        validarLongitud(10, txtCedula, lblErrorCedula, evt);
+
+
     }//GEN-LAST:event_txtCedulaKeyReleased
 
     private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
-        validarNumeros(txtTelefono,evt);
-        validarLongitud(10,txtTelefono,lblErrorTelefono,evt);
+
+        validarLongitud(10, txtTelefono, lblErrorTelefono, evt);
     }//GEN-LAST:event_txtTelefonoKeyReleased
 
-    private void validarNumeros(JTextField t,java.awt.event.KeyEvent evt){
+    private void validarNumeros(JTextField t, java.awt.event.KeyEvent evt) {
         /*
          * 
          * //if (!t.getText().matches("[0-9--]*"))
          if (!t.getText().matches("[0-9]*")){
-            JOptionPane.showMessageDialog(null, "Solo se permiten Numeros","Advertencia",JOptionPane.ERROR_MESSAGE);
+         JOptionPane.showMessageDialog(null, "Solo se permiten Numeros","Advertencia",JOptionPane.ERROR_MESSAGE);
            
             
-        }
-        */
-         if (!Character.isDigit(evt.getKeyChar()) && !Character.isISOControl(evt.getKeyChar())) {
+         }
+         */
+        if (!Character.isDigit(evt.getKeyChar()) && !Character.isISOControl(evt.getKeyChar())) {
             JOptionPane.showMessageDialog(null, "Este campo solo acepta numeros", "Advertencia", JOptionPane.ERROR_MESSAGE);
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
+
+
         }
-    }
-    
-    private void validarLongitud(int Longitud, JTextField txt,JLabel lbl,java.awt.event.KeyEvent evt){
-        
-       
-        if (txt.getText().length()< Longitud ){
-             lbl.setVisible(true);     
-             
-        }else{
-          
-           lbl.setVisible(false); 
-        }
-        
-    }
-    
-    
-    private void detenerEscritura(int Longitud, JTextField txt,java.awt.event.KeyEvent evt){
-        
-       
-        if (txt.getText().length()== Longitud ){
-        evt.consume();
-        }
-          
-        
     }
 
-    private void btnGrabarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrabarMouseClicked
+    private void validarLongitud(int Longitud, JTextField txt, JLabel lbl, java.awt.event.KeyEvent evt) {
+
+
+        if (txt.getText().length() < Longitud) {
+            lbl.setVisible(true);
+
+        } else {
+
+            lbl.setVisible(false);
+        }
+
+    }
+
+    private void detenerEscritura(int Longitud, JTextField txt, java.awt.event.KeyEvent evt) {
+
+
+        if (txt.getText().length() == Longitud) {
+            evt.consume();
+        }
+
+
+    }
+
+    private void cargarDocentes() {
+        try {
+            String titulos[] = {"Nº", "CEDULA", "APELLIDO", "NOMBRE", "DIRECCION", "TELEFONO"};
+            m = new DefaultTableModel(null,titulos);
+            String fila[] = new String[6];
+            
+            String consulta = "select * from vistadocentes";
+            ResultSet r;
+            r = con.Listar(consulta);
+            int c = 1;
+            while (r.next()) {
+                fila[0] = String.valueOf(c) + "º";
+                fila[1] = r.getString(1);
+                fila[2] = r.getString(2);
+                fila[3] = r.getString(3);
+                fila[4] = r.getString(4);
+                fila[5] = r.getString(5);
+                 m.addRow(fila);
+                c++;
+       }
+            tblDocentes.setModel(m);
+            
+
+
+
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Error al cargar los Datos");
+        }
+    }
+    
+    private void formatearTablaDocentes(){
+        tblDocentes.getColumnModel().getColumn(0).setPreferredWidth(1);
+        tblDocentes.getColumnModel().getColumn(0).setPreferredWidth(10);
         
-       try{
-           PreparedStatement pstm=con.getConexion().prepareCall("call insertarDocente(?, ?, ?, ?,?);");
-           pstm.setString(1,txtCedula.getText());
-           pstm.setString(2, txtNombre.getText());
-           pstm.setString(3, txtApellido.getText());
-           pstm.setString(4, txtDireccion.getText());
-           pstm.setString(5, txtTelefono.getText());
-           ResultSet r=pstm.executeQuery();
-           String respuesta="";
-           while(r.next()){
-               respuesta=r.getString(1).toString();
-           }
-           JOptionPane.showMessageDialog(null,respuesta,"CONFIRMACION",JOptionPane.WARNING_MESSAGE);
-           pstm.close();
-           
-       }
-       catch(SQLException ex)
-       {
-           JOptionPane.showMessageDialog(null,ex);
-       }
+    }
+    
+    
+    private void btnGrabarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrabarMouseClicked
+
+        try {
+            PreparedStatement pstm = con.getConexion().prepareCall("call insertarDocente(?, ?, ?, ?,?);");
+            pstm.setString(1, txtCedula.getText());
+            pstm.setString(2, txtNombre.getText());
+            pstm.setString(3, txtApellido.getText());
+            pstm.setString(4, txtDireccion.getText());
+            pstm.setString(5, txtTelefono.getText());
+            ResultSet r = pstm.executeQuery();
+            String respuesta = "";
+            while (r.next()) {
+                respuesta = r.getString(1).toString();
+            }
+            JOptionPane.showMessageDialog(null, respuesta, "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
+            pstm.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }//GEN-LAST:event_btnGrabarMouseClicked
 
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
-       detenerEscritura(10, txtCedula, evt);
+        detenerEscritura(10, txtCedula, evt);
+        validarNumeros(txtCedula, evt);
     }//GEN-LAST:event_txtCedulaKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         detenerEscritura(10, txtTelefono, evt);
+        validarNumeros(txtTelefono, evt);
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     /**
@@ -449,11 +505,13 @@ public class Docentes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblErrorCedula;
     private javax.swing.JLabel lblErrorTelefono;
     private javax.swing.JLabel lblFotos;
     private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JTable tblDocentes;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtDireccion;
