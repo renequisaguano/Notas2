@@ -231,6 +231,11 @@ public class Docentes extends javax.swing.JFrame {
 
         btnLimpiar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLimpiarMouseClicked(evt);
+            }
+        });
         panelPrincipal.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 110, 40));
 
         btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -240,6 +245,7 @@ public class Docentes extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblFotos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/userimage.png"))); // NOI18N
         lblFotos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblFotos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 150));
 
@@ -283,6 +289,11 @@ public class Docentes extends javax.swing.JFrame {
         tblDocentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblDocentesMousePressed(evt);
+            }
+        });
+        tblDocentes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblDocentesKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tblDocentes);
@@ -434,16 +445,27 @@ public class Docentes extends javax.swing.JFrame {
         
     }
     
-    
+    private void limpiar(){
+        txtApellido.setText("");
+        txtCedula.setText("");
+        txtDireccion.setText("");
+        txtNombre.setText("");
+        txtRutaImagen.setText("");
+        txtTelefono.setText("");
+         txtCedula.setEditable(true);
+         txtCedula.requestFocus();
+         lblFotos.setIcon(new ImageIcon(getClass().getResource("/Imagenes/userimage.png")));
+    }    
     private void btnGrabarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrabarMouseClicked
 
         try {
-            PreparedStatement pstm = con.getConexion().prepareCall("call insertarDocente(?, ?, ?, ?,?);");
+            PreparedStatement pstm = con.getConexion().prepareCall("call insertarDocente(?, ?, ?, ?,?,?);");
             pstm.setString(1, txtCedula.getText());
             pstm.setString(2, txtApellido.getText());
             pstm.setString(3, txtNombre.getText());
             pstm.setString(4, txtDireccion.getText());
             pstm.setString(5, txtTelefono.getText());
+            pstm.setString(6, txtRutaImagen.getText());
             ResultSet r = pstm.executeQuery();
             String respuesta = "";
             while (r.next()) {
@@ -468,7 +490,21 @@ public class Docentes extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void tblDocentesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocentesMousePressed
+     
+        mostrarImagen();
+    }//GEN-LAST:event_tblDocentesMousePressed
+
+    private void tblDocentesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDocentesKeyReleased
+        mostrarImagen();
+    }//GEN-LAST:event_tblDocentesKeyReleased
+
+    private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
         // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarMouseClicked
+
+    private void mostrarImagen(){
+           // TODO add your handling code here:
         
         
 //Evento MousePresset del JTable
@@ -497,7 +533,7 @@ public class Docentes extends javax.swing.JFrame {
                
             }
             if (RESPUES.equals("0")) {
-                lblFotos.setIcon(new ImageIcon(getClass().getResource("/Imagenes/paisaje1.jpg")));
+                lblFotos.setIcon(new ImageIcon(getClass().getResource("/Imagenes/userimage.png")));
             } else {
                cargarfoto(cedula);//llama al metodo para cargar la foto en el table y le invia el parametro DNI
             }
@@ -505,10 +541,7 @@ public class Docentes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "OCURRIO UN ERROR AL MOMENTO DE SELECCIONAR EL DOCENTE", "ADVERTENCIA", JOptionPane.QUESTION_MESSAGE);
             
         }
-        
-    }//GEN-LAST:event_tblDocentesMousePressed
-
-    
+    }
     //Crear este metodo tal y como lo explico en el video
  //METODO PARA CARGAR LA FOTO DEL DOCENTE
     public void cargarfoto(String cedula) {
