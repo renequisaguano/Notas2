@@ -1868,7 +1868,7 @@ public class VentanaReproductor extends javax.swing.JFrame implements BasicPlaye
         for (int i = 0; i < listaC.size();i++){
             l.guardarCancion(listaC.get(i));
         }
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_jLabel7MouseClicked
     
     private void jList1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jList1KeyTyped
