@@ -220,48 +220,54 @@ public class Docentes extends javax.swing.JFrame {
         panelPrincipal.add(txtRutaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 160, -1));
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir.png"))); // NOI18N
         btnSalir.setText("SALIR");
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalirMouseClicked(evt);
             }
         });
-        panelPrincipal.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 80, 100, 40));
+        panelPrincipal.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 80, 120, 40));
 
         btnGrabar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnGrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
         btnGrabar.setText("GRABAR");
         btnGrabar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGrabarActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnGrabar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 100, 40));
+        panelPrincipal.add(btnGrabar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 120, 40));
 
         btnModificar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar.png"))); // NOI18N
         btnModificar.setText("MODIFICAR");
-        panelPrincipal.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 120, 40));
+        panelPrincipal.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 120, 40));
 
         btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
-        panelPrincipal.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, 40));
+        panelPrincipal.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, -1, 40));
 
         btnLimpiar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/limpiar.png"))); // NOI18N
         btnLimpiar.setText("LIMPIAR");
         btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLimpiarMouseClicked(evt);
             }
         });
-        panelPrincipal.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 110, 40));
+        panelPrincipal.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 140, 40));
 
         btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         btnActualizar.setText("ACTUALIZA BD");
         btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnActualizarMouseClicked(evt);
             }
         });
-        panelPrincipal.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, 150, 40));
+        panelPrincipal.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(657, 80, -1, 40));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -381,13 +387,12 @@ public class Docentes extends javax.swing.JFrame {
         panelPrincipal.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 270, -1, 100));
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevoUsuario.png"))); // NOI18N
-        btnNuevo.setLabel("");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 60, 40));
+        panelPrincipal.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 60, 40));
 
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 640));
 
