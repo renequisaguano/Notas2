@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c17b7a29-7c53-448e-8e93-7e21a1a909e6">
+	<property name="template.type" value="columnar"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[select * from docente]]>
+	</queryString>
+	<field name="ID_DOC" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CEDULA_DOC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRE_DOC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APELLIDO_DOC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DIRECCION_DOC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONO_DOC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FOTO_DOC" class="java.io.InputStream">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#9DB1B8" uuid="8840d82b-065d-40db-a4dd-c82ff9a34af8"/>
+					<staticText>
+						<reportElement x="4" y="4" width="152" height="20" uuid="001eeb56-38d9-4a7a-89a2-77fb05d91e94"/>
+						<textElement>
+							<font size="12"/>
+						</textElement>
+						<text><![CDATA[Datos Personales:]]></text>
+					</staticText>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+		<groupHeader>
+			<band height="24"/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="176" y="10" width="365" height="93" uuid="92499aab-09d0-496b-a237-583ccfa35c6b"/>
+				<textElement>
+					<font size="80" isBold="false"/>
+				</textElement>
+				<text><![CDATA[EDU KTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="336" y="103" width="217" height="29" uuid="991b09be-cfba-4288-b75d-7ae0511cf221"/>
+				<textElement>
+					<font size="22" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Listado de Docentes]]></text>
+			</staticText>
+			<image>
+				<reportElement x="23" y="10" width="116" height="113" uuid="c88fdeca-ca3d-4c40-92d4-ace2e738021d"/>
+				<imageExpression><![CDATA["C:\\Users\\rene\\Documents\\NetBeansProjects\\Notas2\\src\\Imagenes\\profesores.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="175" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="4" y="164" width="551" height="1" uuid="7a567a4b-b250-42a6-bf13-b65266a3ea61"/>
+			</line>
+			<textField>
+				<reportElement x="268" y="11" width="100" height="20" uuid="b097ba79-e1b0-4298-9959-45dc5f5028c3"/>
+				<textFieldExpression><![CDATA[$F{ID_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="156" y="31" width="100" height="20" uuid="6dca7f9b-872d-471d-9fae-fb03e8af90bf"/>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="31" width="100" height="20" uuid="60e928cb-26c6-498a-bbfa-2f5f218499f1"/>
+				<textFieldExpression><![CDATA[$F{CEDULA_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="156" y="59" width="100" height="20" uuid="b4a32bbe-bcc1-46c5-b206-a0b08ab4e892"/>
+				<text><![CDATA[APELLIDO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="59" width="100" height="20" uuid="2835ccc2-d378-4057-a2c9-812fffa12535"/>
+				<textFieldExpression><![CDATA[$F{APELLIDO_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="156" y="83" width="100" height="20" uuid="89b2f948-66ed-42b3-ba48-be5bbb75d730"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="83" width="100" height="20" uuid="a0e00f61-69cc-4235-afea-132f079817cf"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="156" y="110" width="100" height="20" uuid="4fb3e995-b559-4b44-9393-0153da52e736"/>
+				<text><![CDATA[DIRECCION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="110" width="100" height="20" uuid="94c8c645-0afd-4756-ade7-c9035ca91d9f"/>
+				<textFieldExpression><![CDATA[$F{DIRECCION_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="156" y="136" width="100" height="20" uuid="032ea6a4-f3b6-4248-892a-6f778adec957"/>
+				<text><![CDATA[TELEFONO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="136" width="100" height="20" uuid="a85f7f9c-883b-4191-a2e2-1ebdc6ef2c26"/>
+				<textFieldExpression><![CDATA[$F{TELEFONO_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="156" y="9" width="100" height="20" uuid="12e05f93-caa3-4f40-9dcc-04410ae7c418"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<image>
+				<reportElement x="4" y="29" width="100" height="105" uuid="25a2cbc2-7d8f-471a-a2fa-01092feec35d"/>
+				<imageExpression><![CDATA[$F{FOTO_DOC}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="e0ab0399-a4f0-4b89-bdf4-09b286c27183"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

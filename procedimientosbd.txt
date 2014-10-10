@@ -19,9 +19,18 @@ end
 
 
 insert into docente(CEDULA_DOC,APELLIDO_DOC,NOMBRE_DOC,DIRECCION_DOC,TELEFONO_DOC,FOTO_DOC)
-select ('0532145632','Barreiro','Gonzalo','Loja','0986332563', * from openrowset )
+values ('0532145632','Barreiro','Gonzalo','Loja','0986332563', LOAD_FILE('C:/Users/rene/Pictures/Fondos/Para_Java/2.jpg'));
 
 
+
+//***** SABER SI EXISTE   ******///
+
+create procedure fotoExiste(in  cedula varchar(10))
+BEGIN
+    DECLARE respuesta varchar (10);
+    SELECT IF( EXISTS(SELECT FOTO_DOC FROM docente WHERE CEDULA_DOC='9999999999' AND FOTO_DOC<>''), 1, 0);
+
+END
 
 
 
@@ -36,3 +45,39 @@ select * from docente;
 
 
 call insertarDocente('111','Perez','Diego','quito','0998820095');
+
+
+/////////////////CON FOTO
+
+
+create procedure insertarDocente( in cedula varchar(10), in apellido varchar(45), in nombre varchar(45), in direccion varchar(100), in telefono varchar(10), in url varchar(1000) ) 
+begin
+	declare res varchar(50);
+    if EXISTS (select CEDULA_DOC from docente where CEDULA_DOC=cedula) then
+        set res='La cedula ya ha sido registrada anteriormente'; 
+        select res as respuesta;
+    else 
+    	start transaction;
+        INSERT INTO docente(CEDULA_DOC,NOMBRE_DOC,APELLIDO_DOC,DIRECCION_DOC,TELEFONO_DOC,FOTO_DOC) VALUES (cedula, nombre, apellido, direccion,telefono, LOAD_FILE(url));
+        set res="Docente registrado exitosamente";
+        select res as respuesta; 
+        commit;
+    end if;
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*******************procedimientos sql server
+
+
