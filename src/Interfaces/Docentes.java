@@ -662,6 +662,7 @@ public class Docentes extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         btnGrabar.setEnabled(true);
+        btnLimpiar.setEnabled(true);
         btnNuevo.setEnabled(false);
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
@@ -684,6 +685,7 @@ public class Docentes extends javax.swing.JFrame {
         btnEliminar.setEnabled(true);
         
         btnGrabar.setEnabled(false);
+        btnLimpiar.setEnabled(false);
         btnNuevo.setEnabled(true);
         try {
             String cedula = tblDocentes.getValueAt(fila, 1).toString();
