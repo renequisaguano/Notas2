@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Indivudual" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4d588eb-f932-40a2-87f4-664cb7aea72d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ced" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     docente.`ID_DOC` AS docente_ID_DOC,
+     docente.`CEDULA_DOC` AS docente_CEDULA_DOC,
+     docente.`NOMBRE_DOC` AS docente_NOMBRE_DOC,
+     docente.`APELLIDO_DOC` AS docente_APELLIDO_DOC,
+     docente.`DIRECCION_DOC` AS docente_DIRECCION_DOC,
+     docente.`TELEFONO_DOC` AS docente_TELEFONO_DOC,
+     docente.`FOTO_DOC` AS docente_FOTO_DOC
+FROM
+     `docente` docente
+where cedula_doc=$P{ced}]]>
+	</queryString>
+	<field name="docente_ID_DOC" class="java.lang.Integer"/>
+	<field name="docente_CEDULA_DOC" class="java.lang.String"/>
+	<field name="docente_NOMBRE_DOC" class="java.lang.String"/>
+	<field name="docente_APELLIDO_DOC" class="java.lang.String"/>
+	<field name="docente_DIRECCION_DOC" class="java.lang.String"/>
+	<field name="docente_TELEFONO_DOC" class="java.lang.String"/>
+	<field name="docente_FOTO_DOC" class="java.io.InputStream"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="15" width="533" height="52" uuid="f62725c0-b061-4f16-bd4a-28fbdd505a82"/>
+				<textElement>
+					<font size="30"/>
+				</textElement>
+				<text><![CDATA[DOCENTES - REPORTE INDIVIDUAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="196" y="0" width="185" height="35" uuid="1fbea6a8-e212-4905-82ed-55cdae7dab34"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[DATOS PERSONALES]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="215" splitType="Stretch">
+			<staticText>
+				<reportElement x="222" y="47" width="100" height="20" uuid="ca5f3400-295c-4a91-b7d5-ce1b0e16e91b"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="47" width="100" height="20" uuid="173be95d-1799-47a0-bb7a-8a05d035eea9"/>
+				<textFieldExpression><![CDATA[$F{docente_ID_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="222" y="69" width="100" height="20" uuid="321ce455-51b1-461d-b1d4-be365e864455"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="67" width="100" height="20" uuid="7ee7a5ee-2417-48cf-91df-98adb5130b42"/>
+				<textFieldExpression><![CDATA[$F{docente_CEDULA_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="221" y="89" width="100" height="20" uuid="fa1656b9-c99b-4c41-98d7-10952975ed74"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="89" width="100" height="20" uuid="219da140-0b5f-4cd8-bd63-476d46749286"/>
+				<textFieldExpression><![CDATA[$F{docente_NOMBRE_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="222" y="109" width="100" height="20" uuid="4aeb2309-cd71-49de-a964-c64c1cc5762a"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELLIDO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="109" width="100" height="20" uuid="6343243d-b33e-4f93-aaa1-9a37dfe6a5ae"/>
+				<textFieldExpression><![CDATA[$F{docente_APELLIDO_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="222" y="131" width="100" height="20" uuid="e2e3dd76-298f-4041-acb4-39c819b73ed2"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="129" width="100" height="20" uuid="6bfdf013-3840-4a75-8471-ed7f9adb4fd4"/>
+				<textFieldExpression><![CDATA[$F{docente_DIRECCION_DOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="221" y="152" width="100" height="20" uuid="aaee5591-6d20-4478-bdb0-82e86424d0bb"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="151" width="100" height="20" uuid="a2c2e44d-3633-4a19-9a89-20e496385414"/>
+				<textFieldExpression><![CDATA[$F{docente_TELEFONO_DOC}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="33" y="39" width="150" height="132" uuid="378a4b2e-63a7-4fc9-b51d-c60a6749cca7"/>
+				<imageExpression><![CDATA[$F{docente_FOTO_DOC}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="22" y="17" width="100" height="20" uuid="3a7dd284-6481-4e95-8beb-4d7e0c5e09da"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="17" width="80" height="20" uuid="42ecd206-ded6-41e2-88b9-1afd7cc37fcc"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="488" y="17" width="40" height="20" uuid="dcaebd71-3495-4be0-83da-36f37fad7778"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

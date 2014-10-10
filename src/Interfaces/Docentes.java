@@ -5,17 +5,23 @@
 package Interfaces;
 
 import Clases.Foto;
+import Clases.Reportes;
 import Conexion.Conexion;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -26,6 +32,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -301,6 +310,11 @@ public class Docentes extends javax.swing.JFrame {
         btnExportar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
         btnExportar.setText("Exportar ");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -343,6 +357,11 @@ public class Docentes extends javax.swing.JFrame {
         btnHistorial.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/historial.png"))); // NOI18N
         btnHistorial.setText("Ver Histrorial");
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistorialActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -563,6 +582,63 @@ public class Docentes extends javax.swing.JFrame {
         detenerEscritura(10, txtCedula, evt);
         validarNumeros(txtCedula, evt);
     }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        int fila=tblDocentes.getSelectedRow();
+        if(fila== -1){
+            JOptionPane.showMessageDialog(null,"Debe selecionar un docente","ERROR",JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            try{
+                String cedula=tblDocentes.getValueAt(fila, 1).toString();
+               
+                String rutaInforme="C:\\Users\\rene\\Documents\\NetBeansProjects\\Notas2\\src\\Reportes\\Indivudual.jasper";
+                Map parametros = new HashMap();
+                parametros.put("ced",cedula);
+                System.out.println(parametros);
+                JasperPrint informe=JasperFillManager.fillReport(rutaInforme,parametros,con.getConexion());
+                
+                JasperViewer ventanaVisor=new JasperViewer(informe,false);
+                ventanaVisor.setTitle("INFORME");
+                ventanaVisor.setVisible(true);
+                
+            
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null,"Error al cargar el reporte", "ERROR",JOptionPane.ERROR_MESSAGE);
+                System.out.println(ex);
+            }
+        }
+    }//GEN-LAST:event_btnHistorialActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        Reportes re = new Reportes();
+        String ruta = "C:\\Users\\rene\\Documents\\NetBeansProjects\\Notas2\\src\\Reportes\\report1.jasper";
+        //ABRIR CUADRO DE DIALOGO PARA GUARDAR EL ARCHIVO         
+        JFileChooser fileChooser = new JFileChooser();
+        //fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.PDF", "pdf", "PDF"));//filtro para ver solo archivos .pdf
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("*.pdf","pdf","PDF"));
+        int seleccion = fileChooser.showSaveDialog(null);
+        try {
+            if (seleccion == JFileChooser.APPROVE_OPTION) {//comprueba si ha presionado el boton de aceptar
+                File JFC = fileChooser.getSelectedFile();
+                String PATH = JFC.getAbsolutePath();//obtenemos la direccion del archivo + el nombre a guardar
+                try (PrintWriter printwriter = new PrintWriter(JFC)) {
+                    printwriter.print(ruta);
+                }
+                re.reportesPDF(ruta, PATH);//mandamos como parametros la ruta del archivo a compilar y el nombre y ruta donde se guardaran    
+                //comprobamos si a la hora de guardar obtuvo la extension y si no se la asignamos
+                if (!(PATH.endsWith(".pdf"))) {
+                    File temp = new File(PATH + ".pdf");
+                    JFC.renameTo(temp);//renombramos el archivo
+                }
+                JOptionPane.showMessageDialog(null, "Esto puede tardar unos segundos,espere porfavor", "Estamos Generando el Reporte", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Documento Exportado Exitosamente!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (FileNotFoundException | HeadlessException e) {//por alguna excepcion salta un mensaje de error
+            JOptionPane.showMessageDialog(null, "Error al Exportar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnExportarActionPerformed
 
     private void mostrarImagen(){
            // TODO add your handling code here:

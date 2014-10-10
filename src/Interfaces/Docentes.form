@@ -498,6 +498,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Exportar "/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -591,6 +594,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ver Histrorial"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistorialActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
