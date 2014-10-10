@@ -4,6 +4,7 @@
  */
 package Menu;
 
+import Interfaces.Docentes;
 import Logeo.Logeo;
 
 /**
@@ -39,6 +40,7 @@ public class Principal extends javax.swing.JFrame {
         mnuLogeo = new javax.swing.JMenuItem();
         mnuSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,6 +114,17 @@ public class Principal extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mantenimiento.png"))); // NOI18N
         jMenu2.setText("Mantenimiento");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem1.setText("Docentes");
+        jMenuItem1.setActionCommand("Docentes");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reportes.png"))); // NOI18N
@@ -146,6 +159,12 @@ public class Principal extends javax.swing.JFrame {
         l.setVisible(true);
         
     }//GEN-LAST:event_mnuLogeoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Docentes d=new Docentes();
+        d.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,6 +206,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private org.jdesktop.swingx.JXMonthView jXMonthView1;
     private jcMousePanel.jcMousePanel jcMousePanel2;
     private javax.swing.JMenuItem mnuLogeo;

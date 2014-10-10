@@ -51,6 +51,7 @@ public class Docentes extends javax.swing.JFrame {
     FileInputStream fis;
     Foto f=new Foto();
     
+    
  
     
     
@@ -64,10 +65,12 @@ public class Docentes extends javax.swing.JFrame {
     public Docentes() {
         initComponents();
         cargarDocentes();
-        formatearTablaDocentes();
+        btnNuevo.setEnabled(false);
         ocultarMensajes();
         rutaImagen = "";
         this.setLocationRelativeTo(null);
+         btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
         
     }
 
@@ -120,6 +123,7 @@ public class Docentes extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         btnHistorial = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -132,7 +136,7 @@ public class Docentes extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -226,20 +230,20 @@ public class Docentes extends javax.swing.JFrame {
 
         btnGrabar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnGrabar.setText("GRABAR");
-        btnGrabar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGrabarMouseClicked(evt);
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnGrabar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 100, 40));
+        panelPrincipal.add(btnGrabar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 100, 40));
 
         btnModificar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnModificar.setText("MODIFICAR");
-        panelPrincipal.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 120, 40));
+        panelPrincipal.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 120, 40));
 
         btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnEliminar.setText("ELIMINAR");
-        panelPrincipal.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, 40));
+        panelPrincipal.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, 40));
 
         btnLimpiar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnLimpiar.setText("LIMPIAR");
@@ -248,10 +252,15 @@ public class Docentes extends javax.swing.JFrame {
                 btnLimpiarMouseClicked(evt);
             }
         });
-        panelPrincipal.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 110, 40));
+        panelPrincipal.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 110, 40));
 
         btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnActualizar.setText("ACTUALIZA BD");
+        btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnActualizarMouseClicked(evt);
+            }
+        });
         panelPrincipal.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, 150, 40));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -337,18 +346,7 @@ public class Docentes extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del Docente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 268, Short.MAX_VALUE)
-        );
-
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelPrincipal.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 410, 290));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -381,6 +379,15 @@ public class Docentes extends javax.swing.JFrame {
         );
 
         panelPrincipal.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 270, -1, 100));
+
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevoUsuario.png"))); // NOI18N
+        btnNuevo.setLabel("");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+        panelPrincipal.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 60, 40));
 
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 640));
 
@@ -430,7 +437,7 @@ public class Docentes extends javax.swing.JFrame {
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_btnSalirMouseClicked
 
     private void validarNumeros(JTextField t, java.awt.event.KeyEvent evt) {
@@ -501,6 +508,7 @@ public class Docentes extends javax.swing.JFrame {
             TableRowSorter<TableModel> paraOrdenar=new TableRowSorter<TableModel>(m);
             tblDocentes.setRowSorter(paraOrdenar);
             tblDocentes.setModel(m);
+            formatearTablaDocentes();
           
 
         } catch (Exception ex) {
@@ -509,8 +517,8 @@ public class Docentes extends javax.swing.JFrame {
     }
     
     private void formatearTablaDocentes(){
-        tblDocentes.getColumnModel().getColumn(0).setPreferredWidth(1);
-        tblDocentes.getColumnModel().getColumn(0).setPreferredWidth(10);
+       tblDocentes.getColumnModel().getColumn(0).setPreferredWidth(1);
+       // tblDocentes.getColumnModel().getColumn(0).setPreferredWidth(10);
         
     }
     
@@ -525,36 +533,13 @@ public class Docentes extends javax.swing.JFrame {
          txtCedula.requestFocus();
          lblFotos.setIcon(new ImageIcon(getClass().getResource("/Imagenes/userimage.png")));
     }    
-    private void btnGrabarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGrabarMouseClicked
-
-        try {
-            PreparedStatement pstm = con.getConexion().prepareCall("call insertarDocente(?, ?, ?, ?,?,?);");
-            pstm.setString(1, txtCedula.getText());
-            pstm.setString(2, txtApellido.getText());
-            pstm.setString(3, txtNombre.getText());
-            pstm.setString(4, txtDireccion.getText());
-            pstm.setString(5, txtTelefono.getText());
-            pstm.setString(6, txtRutaImagen.getText());
-            ResultSet r = pstm.executeQuery();
-            String respuesta = "";
-            while (r.next()) {
-                respuesta = r.getString(1).toString();
-            }
-            JOptionPane.showMessageDialog(null, respuesta, "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
-            pstm.close();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-    }//GEN-LAST:event_btnGrabarMouseClicked
-
     private void tblDocentesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocentesMousePressed
      
-        mostrarImagen();
+        mostrarDatos();
     }//GEN-LAST:event_tblDocentesMousePressed
 
     private void tblDocentesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDocentesKeyReleased
-        mostrarImagen();
+        mostrarDatos();
     }//GEN-LAST:event_tblDocentesKeyReleased
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
@@ -595,7 +580,7 @@ public class Docentes extends javax.swing.JFrame {
                 String rutaInforme="C:\\Users\\rene\\Documents\\NetBeansProjects\\Notas2\\src\\Reportes\\Indivudual.jasper";
                 Map parametros = new HashMap();
                 parametros.put("ced",cedula);
-                System.out.println(parametros);
+               
                 JasperPrint informe=JasperFillManager.fillReport(rutaInforme,parametros,con.getConexion());
                 
                 JasperViewer ventanaVisor=new JasperViewer(informe,false);
@@ -640,7 +625,50 @@ public class Docentes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExportarActionPerformed
 
-    private void mostrarImagen(){
+    private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
+      cargarDocentes();
+    }//GEN-LAST:event_btnActualizarMouseClicked
+
+    private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+        
+        try {
+            PreparedStatement pstm = con.getConexion().prepareCall("call insertarDocente(?, ?, ?, ?,?,?);");
+            pstm.setString(1, txtCedula.getText());
+            pstm.setString(2, txtApellido.getText());
+            pstm.setString(3, txtNombre.getText());
+            pstm.setString(4, txtDireccion.getText());
+            pstm.setString(5, txtTelefono.getText());
+            pstm.setString(6, txtRutaImagen.getText());
+            ResultSet r = pstm.executeQuery();
+            String respuesta = "";
+            while (r.next()) {
+                respuesta = r.getString(1).toString();
+            }
+            JOptionPane.showMessageDialog(null, respuesta, "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
+            pstm.close();
+            if (respuesta.equals("Docente registrado exitosamente"))
+            {
+            limpiar();
+            cargarDocentes();
+            }else
+            {
+                txtCedula.requestFocus();
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        btnGrabar.setEnabled(true);
+        btnNuevo.setEnabled(false);
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        limpiar();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void mostrarDatos(){
            // TODO add your handling code here:
         
         
@@ -648,10 +676,15 @@ public class Docentes extends javax.swing.JFrame {
         int fila = this.tblDocentes.getSelectedRow();
 //        desactivagenerador();
         
-       btnGrabar.setEnabled(false);
+      /* btnGrabar.
        btnEliminar.setEnabled(true);
        btnModificar.setEnabled(true);
-       txtCedula.setEditable(false);
+       txtCedula.setEditable(false);*/
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        
+        btnGrabar.setEnabled(false);
+        btnNuevo.setEnabled(true);
         try {
             String cedula = tblDocentes.getValueAt(fila, 1).toString();
             this.txtCedula.setText(tblDocentes.getValueAt(fila, 1).toString());
@@ -741,6 +774,7 @@ public class Docentes extends javax.swing.JFrame {
     private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
