@@ -1865,9 +1865,12 @@ public class VentanaReproductor extends javax.swing.JFrame implements BasicPlaye
         } catch (BasicPlayerException ex) {
             Logger.getLogger(VentanaReproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        /*JOptionPane.showMessageDialog(null,"Espere mientras se guarda la lista de reproduccion");
         for (int i = 0; i < listaC.size();i++){
-            l.guardarCancion(listaC.get(i));
-        }
+           //PARA GUARDAR CANCIONES
+           l.guardarCancion(listaC.get(i));
+        }*/
+         JOptionPane.showMessageDialog(null,"Reproductor Cerrado");
         this.dispose();
     }//GEN-LAST:event_jLabel7MouseClicked
     

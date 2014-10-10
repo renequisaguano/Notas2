@@ -52,7 +52,7 @@ public class DBManager {
 			System.out.println("Error al desconectar");
 		}
 	}
-	public ResultSet getRS(String sql) {
+   public ResultSet getRS(String sql) {
 		ResultSet res = null;
 		try{
 			Statement st = cnn.createStatement();
@@ -62,7 +62,7 @@ public class DBManager {
 		}
 		return res;
 	}
-	public boolean ejecutar(String sql){
+public boolean ejecutar(String sql){
 		try{
 			this.conectar();
 			Statement st = cnn.createStatement();
