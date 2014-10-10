@@ -4,8 +4,19 @@
  */
 package Menu;
 
+
+/*para el reproductor*/
+import java.io.IOException;
+
 import Interfaces.Docentes;
 import Logeo.Logeo;
+import ReproductorGui.VentanaReproductor;
+import ReproductorMain.Main;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import org.blinkenlights.jid3.ID3Exception;
 
 /**
  *
@@ -32,6 +43,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
         jcMousePanel2 = new jcMousePanel.jcMousePanel();
         jXMonthView1 = new org.jdesktop.swingx.JXMonthView();
         clockFace1 = new org.edisoncor.gui.varios.ClockFace();
@@ -42,6 +54,10 @@ public class Principal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -117,7 +133,6 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK));
         jMenuItem1.setText("Docentes");
-        jMenuItem1.setActionCommand("Docentes");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -131,6 +146,21 @@ public class Principal extends javax.swing.JFrame {
         jMenu3.setText("Reportes");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reportes.png"))); // NOI18N
+        jMenu4.setText("Opciones");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem3.setText("Reproductor");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -165,6 +195,25 @@ public class Principal extends javax.swing.JFrame {
         d.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+          try {            
+            UIManager.setLookAndFeel("de.muntjak.tinylookandfeel.TinyLookAndFeel");
+            //TinyLookAndFeel.setCurrentTheme(TinyLookAndFeel.getCurrentTheme());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        VentanaReproductor v = null;
+        try {
+            v = new VentanaReproductor();
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ID3Exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,8 +254,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private org.jdesktop.swingx.JXMonthView jXMonthView1;
     private jcMousePanel.jcMousePanel jcMousePanel2;
     private javax.swing.JMenuItem mnuLogeo;
