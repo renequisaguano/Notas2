@@ -100,14 +100,17 @@ public class Docentes extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblFotos = new javax.swing.JLabel();
-        btnHistorial = new javax.swing.JButton();
-        btnExportar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
         jTextField1 = new javax.swing.JTextField();
         lblErrorTelefono = new javax.swing.JLabel();
         lblErrorCedula = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDocentes = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        btnExportar = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        btnHistorial = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -172,21 +175,21 @@ public class Docentes extends javax.swing.JFrame {
         panelPrincipal.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTelefonoKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelefonoKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyReleased(evt);
             }
         });
         panelPrincipal.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 150, 30));
 
         txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCedulaKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCedulaKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyReleased(evt);
             }
         });
         panelPrincipal.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 150, 30));
@@ -200,8 +203,8 @@ public class Docentes extends javax.swing.JFrame {
                 btnCargarImagenActionPerformed(evt);
             }
         });
-        panelPrincipal.add(btnCargarImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 310, -1, -1));
-        panelPrincipal.add(txtRutaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 160, -1));
+        panelPrincipal.add(btnCargarImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, -1));
+        panelPrincipal.add(txtRutaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 160, -1));
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSalir.setText("SALIR");
@@ -249,21 +252,13 @@ public class Docentes extends javax.swing.JFrame {
         lblFotos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblFotos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 150));
 
-        panelPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 130, 150));
-
-        btnHistorial.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnHistorial.setText("Ver Histrorial");
-        panelPrincipal.add(btnHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 260, 190, 60));
-
-        btnExportar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnExportar.setText("Exportar ");
-        panelPrincipal.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 170, 190, 60));
+        panelPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 130, 150));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelPrincipal.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 360, 100, 30));
+        panelPrincipal.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, 100, 30));
 
         jTextField1.setText("jTextField1");
-        panelPrincipal.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 360, 170, 30));
+        panelPrincipal.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, 210, 30));
 
         lblErrorTelefono.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lblErrorTelefono.setForeground(new java.awt.Color(255, 0, 0));
@@ -299,6 +294,74 @@ public class Docentes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblDocentes);
 
         panelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 930, 180));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del Docente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+
+        btnExportar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
+        btnExportar.setText("Exportar ");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelPrincipal.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 210, 100));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del Docente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 268, Short.MAX_VALUE)
+        );
+
+        panelPrincipal.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 410, 290));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del Docente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+
+        btnHistorial.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/historial.png"))); // NOI18N
+        btnHistorial.setText("Ver Histrorial");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        panelPrincipal.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 270, -1, 100));
 
         getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 640));
 
@@ -350,19 +413,6 @@ public class Docentes extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnSalirMouseClicked
-
-    private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
-
-
-        validarLongitud(10, txtCedula, lblErrorCedula, evt);
-
-
-    }//GEN-LAST:event_txtCedulaKeyReleased
-
-    private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
-
-        validarLongitud(10, txtTelefono, lblErrorTelefono, evt);
-    }//GEN-LAST:event_txtTelefonoKeyReleased
 
     private void validarNumeros(JTextField t, java.awt.event.KeyEvent evt) {
         /*
@@ -479,16 +529,6 @@ public class Docentes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGrabarMouseClicked
 
-    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
-        detenerEscritura(10, txtCedula, evt);
-        validarNumeros(txtCedula, evt);
-    }//GEN-LAST:event_txtCedulaKeyTyped
-
-    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-        detenerEscritura(10, txtTelefono, evt);
-        validarNumeros(txtTelefono, evt);
-    }//GEN-LAST:event_txtTelefonoKeyTyped
-
     private void tblDocentesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocentesMousePressed
      
         mostrarImagen();
@@ -502,6 +542,27 @@ public class Docentes extends javax.swing.JFrame {
         // TODO add your handling code here:
         limpiar();
     }//GEN-LAST:event_btnLimpiarMouseClicked
+
+    private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
+
+        validarLongitud(10, txtTelefono, lblErrorTelefono, evt);
+    }//GEN-LAST:event_txtTelefonoKeyReleased
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        detenerEscritura(10, txtTelefono, evt);
+        validarNumeros(txtTelefono, evt);
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyReleased
+
+        validarLongitud(10, txtCedula, lblErrorCedula, evt);
+
+    }//GEN-LAST:event_txtCedulaKeyReleased
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        detenerEscritura(10, txtCedula, evt);
+        validarNumeros(txtCedula, evt);
+    }//GEN-LAST:event_txtCedulaKeyTyped
 
     private void mostrarImagen(){
            // TODO add your handling code here:
@@ -615,6 +676,9 @@ public class Docentes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblErrorCedula;
